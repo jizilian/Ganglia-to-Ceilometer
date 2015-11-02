@@ -4,6 +4,7 @@ from lxml import etree
 
 class Ganglia_Ceilometer_Plugin():
     
+    results = {}
     #init method, do nothing now
     def __init__(self):    
         print "Start Ganglia Ceilometer Connection Plugin."
@@ -41,12 +42,15 @@ class Ganglia_Ceilometer_Plugin():
             keys = sorted(hosts[h])
             for k in keys:
 		if "cpu_" in k:
+		    self.results[k] = hosts[h][k]
                     print "   %s = %s" % (k,hosts[h][k])
+	return self.results
 
-def main():
+#def main():
     #currently test case, ganglia is installed locally, port is 8649 for default
-    gcp = Ganglia_Ceilometer_Plugin()
-    gcp.get_xml_from_ganglia("localhost", 8649)
+#    gcp = Ganglia_Ceilometer_Plugin()
+#    gcp.get_xml_from_ganglia("localhost", 8649)
+#    print gcp.results
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
